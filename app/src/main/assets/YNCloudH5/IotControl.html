@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>物联控制</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" type="text/css" href="css/toggle-button.css">
+	<link rel="stylesheet" type="text/css" href="css/loading.css">
+	<style type="text/css" media="screen">
+		body,html{
+			background: #f2f2f2;
+			height: 100%;
+		}
+		/*------------------------------卡片-----------------------------*/
+		.equipment-card{
+			height: 100%;
+		}
+		.equipment-card .main-card{
+			height: auto;
+		}
+		/*------------------顶部div-------------------*/
+		.equipment-card .main-card .top-card{
+			background: #fff;
+			width: auto;
+			height: 50px;
+			margin: 10px 10px 0 10px;
+			border-radius: 10px 10px 0px 0px;
+			border-bottom: 2px dashed #ebf3ff;
+			position: relative;
+		}
+		/*-------------小正方形遮挡内凹圆角实现-------------*/
+		.equipment-card .main-card .top-card .left-bottom,
+		.equipment-card .main-card .top-card .right-bottom,
+		.equipment-card .main-card .bottom-card .left-top,
+		.equipment-card .main-card .bottom-card .right-top{
+			position: absolute;
+		    width: 10px;
+		    height: 10px;
+		    border: 1px solid #f2f2f2;
+		    z-index: 1;
+		    background: #f2f2f2;
+		}
+		.equipment-card .main-card .top-card .left-bottom{
+			left: -1px;
+		    bottom: -1px;
+		    border-radius:0px 10px 0px 0px;
+		    border-top: 1px solid #fff;
+		    border-right: 1px solid #fff;
+		}
+		.equipment-card .main-card .top-card .right-bottom{
+			right: -1px;
+		    bottom: -1px;
+		    border-radius:10px 0px 0px 0px;
+		    border-top: 1px solid #fff;
+		    border-left: 1px solid #fff;
+		}
+		/*------------------底部div------------------------*/
+		.equipment-card .main-card .bottom-card{
+			background: #fff;
+			width: auto;
+			height: 100px;
+			margin: 0 10px;
+			border-radius: 0px 0px 10px 10px;
+			position: relative;
+			box-shadow: 1px 1px 5px #fafcff;
+		}
+		.equipment-card .main-card .bottom-card .left-top{
+			top: -1px;
+		    left: -1px;
+		    border-radius:0px 0px 10px 0px;
+		    border-bottom: 1px solid #fff;
+		    border-right: 1px solid #fff;
+		}
+		.equipment-card .main-card .bottom-card .right-top{
+			top: -1px;
+		    right: -1px;
+		    border-radius:0px 0px 0px 10px;
+		    border-bottom: 1px solid #fff;
+		    border-left: 1px solid #fff;
+		}
+		/*-------------------------顶部内容-------------------------*/
+		.equipment-card .main-card .top-content{
+			height: 100%;
+			display: flex;
+			flex-direction: row;
+		}
+		.equipment-card .main-card .top-content .left{
+			display: flex;
+			flex-direction: row;
+			width: auto;
+			height: auto;
+			margin: auto;
+		}
+		.equipment-card .main-card .top-content .left h2{
+			text-align: center;
+			color: #7eb3ff;
+			font-weight: 700;
+		}
+		.equipment-card .main-card .top-content .left .piece{
+			background: #7eb3ff;
+			width: 50px;
+			height: 20px;
+			margin-left: 10px;
+		}
+		.equipment-card .main-card .top-content .left .piece span{
+			margin-left: 3px;
+			color: #fff;
+		}
+		.equipment-card .main-card .top-content .right{
+			display: flex;
+			flex-direction: row;
+			width: auto;
+			height: auto;
+			margin: auto;
+		}
+		.equipment-card .main-card .top-content .right .area{
+			background: #d784ff;
+			width: 10px;
+			height: 10px;
+			border-radius: 10px;
+			margin: auto;
+		}
+		.equipment-card .main-card .top-content .right h4{
+			margin: 0 2px 0 5px;
+		}
+		.equipment-card .main-card .top-content .right span{
+			color: #a9cbff;
+			font-size: 18px;
+		}
+		/*-------------------------底部内容-------------------------*/
+		.equipment-card .main-card .bottom-content{
+			height: 100%;
+			display: flex;
+			flex-direction: row;
+		}
+		.equipment-card .main-card .bottom-content .left{
+			margin: auto;
+		}
+		.equipment-card .main-card .bottom-content .left p{
+			color: #a4a3a4;
+			margin: 5px 0;
+		}
+		.equipment-card .main-card .bottom-content .left p span{
+			color: #000;
+			margin-left: 10px;
+			margin-right: 5px;
+
+		}
+		.equipment-card .main-card .bottom-content .right{
+			margin:auto;
+		}
+		.equipment-card .main-card .bottom-content .right p{
+			display:flex;
+			text-align: center;
+			justify-content: center;
+		}
+
+
+		.cnt {
+	        width: 100%;
+	        height: 100%;
+	        position: absolute;
+	        top: 0;
+	        left: 0;
+	        background: rgba(0,0,0,.6);
+	        color: #fff;
+	        font-size: 18px;
+	        line-height: 1.6em;
+	        display: none;
+	        justify-content: center;
+	        align-items: center;
+	        flex-direction: column;
+	        z-index: 9;
+	    }
+	    #center{
+			align-items:center;
+			justify-content:center;
+			display:none;
+	    }
+	    #center img{
+	    	width:auto;
+			height:100%;
+	    }
+	</style>
+</head>
+<body>
+	<div class="cnt"></div>
+	<div id="center">
+		<!--<img src="images/nodata.png" alt=""/>-->
+		无数据，换一个试试
+	</div>
+	<div class="equipment-card">
+
+	</div>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+	function get_android_data(controldata){
+		if(controldata==""){
+			//alert("此终端没有可控设备，换一个试试！");
+			$("#center").css("display","flex");
+			$(".cnt").css("display","flex");
+		}
+		else{
+			$("#center").css("display","none");
+			$(".cnt").css("display","none");
+		}
+		$(".equipment-card").empty();
+		$.each(controldata,function(index,history){
+			var $nodebase = addNodeBase(history);
+			$('.equipment-card').append($nodebase);
+			if(history.isSwitch=="0") $("#"+history.id).children().children().eq(2).children().children().eq(1).css("background","#9a9a9a");
+			if(history.isSwitch=="1") $("#"+history.id).children().children().eq(2).children().children().eq(1).css("background","#7eb3ff");
+		});
+	}
+
+	function addNodeBase(dataitems){
+		//alert(dataitems.name);
+
+		var topcontent;
+		var bottomcontent;
+
+
+		//设备在线
+		if(dataitems.state=="1"){
+			//设备关闭
+			if(dataitems.isSwitch=="0"){
+
+				topcontent='<div class="left">'+
+							'<h2>'+dataitems.alias+'</h2>'+
+							'<div class="piece">'+
+								'<span>已关闭</span>'+
+							'</div>'+
+						'</div>'+
+						'<div class="right">'+
+							'<div class="area"></div>'+
+							'<h4>当前状态</h4>'+
+							'<span>在线</span>'+
+						'</div>';
+
+				bottomcontent='<div class="left">'+
+									'<p>设备名称：<span>'+dataitems.keywords+'</span></p>'+
+									'<p>设备ID：<span>'+dataitems.id+'</span></p>'+
+									'<p>所在水塘：<span>--</span></p>'+
+								'</div>'+
+								'<div class="right">'+
+									'<input class="switch switch-anim" onchange="checkNum()" type="checkbox"  />'+
+								'</div>';
+			}
+
+			//设备开启
+			else{
+
+				topcontent='<div class="left">'+
+								'<h2>'+dataitems.alias+'</h2>'+
+								'<div class="piece">'+
+									'<span>已开启</span>'+
+								'</div>'+
+							'</div>'+
+							'<div class="right">'+
+								'<div class="area"></div>'+
+								'<h4>当前状态</h4>'+
+								'<span>在线</span>'+
+							'</div>';
+
+				bottomcontent='<div class="left">'+
+									'<p>设备名称：<span>'+dataitems.keywords+'</span></p>'+
+									'<p>设备ID：<span>'+dataitems.id+'</span></p>'+
+									'<p>所在水塘：<span>--</span></p>'+
+								'</div>'+
+								'<div class="right">'+
+									'<input class="switch switch-anim" onchange="checkNum()" type="checkbox"  checked/>'+
+								'</div>';
+			}
+
+		}
+
+		//设备离线
+		else{
+			//设备关闭
+			if(dataitems.isSwitch=="0"){
+
+				topcontent='<div class="left">'+
+							'<h2>'+dataitems.alias+'</h2>'+
+							'<div class="piece">'+
+								'<span>已关闭</span>'+
+							'</div>'+
+						'</div>'+
+						'<div class="right">'+
+							'<div class="area"></div>'+
+							'<h4>当前状态</h4>'+
+							'<span>离线</span>'+
+						'</div>';
+
+				bottomcontent='<div class="left">'+
+									'<p>设备名称：<span>'+dataitems.keywords+'</span></p>'+
+									'<p>设备ID：<span>'+dataitems.id+'</span></p>'+
+									'<p>所在水塘：<span>--</span></p>'+
+								'</div>'+
+								'<div class="right">'+
+								'<input class="switch switch-anim" type="checkbox" disabled/>'+
+								'<p >离线不可控</p>'+
+								'</div>';
+			}
+			//设备开启
+			else{
+
+				topcontent='<div class="left">'+
+								'<h2>'+dataitems.alias+'</h2>'+
+								'<div class="piece">'+
+									'<span>已开启</span>'+
+								'</div>'+
+							'</div>'+
+							'<div class="right">'+
+								'<div class="area"></div>'+
+								'<h4>当前状态</h4>'+
+								'<span>离线</span>'+
+							'</div>';
+
+				bottomcontent='<div class="left">'+
+									'<p>设备名称：<span>'+dataitems.keywords+'</span></p>'+
+									'<p>设备ID：<span>'+dataitems.id+'</span></p>'+
+									'<p>所在水塘：<span>--</span></p>'+
+								'</div>'+
+								'<div class="right">'+
+								'<input class="switch switch-anim" type="checkbox" checked  disabled/>'+
+								'<p >离线不可控</p>'+
+								'</div>';
+			}
+		}
+
+		//主
+		var cardnode ='<div class="main-card" id="'+dataitems.id+'">'+
+							'<div class="top-card">'+
+								'<div class="left-bottom"></div>'+
+								'<div class="right-bottom"></div>'+
+								'<div class="top-content">'+
+
+									topcontent+
+
+								'</div>'+
+							'</div>'+
+							'<div class="bottom-card">'+
+								'<div class="left-top"></div>'+
+								'<div class="right-top"></div>'+
+								'<div class="bottom-content">'+
+									bottomcontent+
+								'</div>'+
+							'</div>'+
+						'</div>';
+
+
+		return $(cardnode);
+
+	}
+</script>
+<script type="text/javascript">
+
+	var timer = setInterval(function(){
+
+		$(".switch").removeAttr("disabled");
+
+	},3000);
+
+	 $("body").on("change", ".switch", function() {
+	 	$(this).attr("disabled","disabled");
+	 	if ($('.switch-anim').prop('checked')) {
+	 		let id= $(this).parent().parent().parent().parent().attr("id");
+	 		$("#"+id).children().children().eq(2).children().children().eq(1).css("background","#7eb3ff");
+	 		$("#"+id).children().children().eq(2).children().children().eq(1).children().html("已开启");
+	 		let getswitch="1";
+	 		window.android.getJSdata(id,getswitch);
+	 		console.log("选中");
+	 	}
+	 	else{
+	 		let id= $(this).parent().parent().parent().parent().attr("id");
+	 		$("#"+id).children().children().eq(2).children().children().eq(1).css("background","#9a9a9a");
+	 		$("#"+id).children().children().eq(2).children().children().eq(1).children().html("已关闭");
+	 		let getswitch="0";
+	 		window.android.getJSdata(id,getswitch);
+	 		console.log("未中");
+	 	 }
+	 });
+</script>
+
+</body>
+</html>

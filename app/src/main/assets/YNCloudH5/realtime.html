@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<script src="js/highcharts.js"></script>
+	<script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<title>Document</title>
+	<style type="text/css">
+		body{
+			height: 100%;
+			background:#f2f2f2;
+		}
+		#container{
+			height:50%;
+			font-family:"Microsoft YaHei","宋体","Segoe UI","Lucida Grande",Helvetica,Arial,sans-serif,FreeSans,Arimo;
+		}
+		.table-container{
+			height:auto;
+			margin: auto;
+    		display: flex;
+    		text-align: center;
+    		justify-content: center;
+    		margin-bottom: 20px;
+		}
+
+		.table-container table {
+			 border-collapse: collapse;
+			 font-family: Futura, Arial, sans-serif;
+		}
+
+		caption {
+
+			 font-size: larger;
+
+			 margin: 1em auto;
+
+		}
+
+		th,td {
+
+			 padding: .90em;
+
+		}
+
+		th {
+
+			 background: #555 scroll 0 0;
+
+		   /* border: 1px solid #777; */
+
+		   color: #fff;
+
+		}
+
+		td {
+
+			 /* border: 1px solid #777; */
+
+		}
+
+		tbody tr:nth-child(odd) {
+
+			 background: #ccc;
+
+		}
+
+		th:first-child {
+
+			 border-radius: 9px 0 0 0;
+
+		}
+
+		th:last-child {
+
+			 border-radius: 0 9px 0 0;
+
+		}
+
+		tr:last-child td:first-child {
+
+			 border-radius: 0 0 0 9px;
+
+		}
+
+		tr:last-child td:last-child {
+
+			 border-radius: 0 0 9px 0;
+
+		}
+
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	<div class="table-container">
+		<table>
+			<!--<caption>设备数据列表</caption>-->
+			<thead class="add-thead">
+
+			</thead>
+			<tbody class="add-tr">
+
+			</tbody>
+		</table>
+	</div>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+
+	var devicesname;//设备数据的名称 空气湿度(℃)
+	var realtimedata="0";//设备数据
+	
+
+	//接收实时数据
+	function get_android_onload(realtime){
+		//alert(realtime.content);
+		realtimedata=realtime.content;
+	}
+
+	//接收曲线名称
+	function get_android_name(name){
+		devicesname=name.devices_content;
+
+	}
+
+	//接收历史数据
+	function get_android_realtimedata(realdata){
+
+		$(".add-thead").empty();
+        $(".add-tr").empty();
+        $("caption").remove();
+
+		var list=realdata.list;
+
+		//获取list长度
+		var listlength=Object.keys(list).length;
+
+		Highcharts.setOptions({
+				global: {
+						useUTC: false
+				}
+		});
+		function activeLastPointToolip(chart) {
+				var points = chart.series[0].points;
+				chart.tooltip.refresh(points[points.length -1]);
+		}
+		var chart = Highcharts.chart('container', {
+				chart: {
+						type: 'spline',
+						marginRight: 10,
+						events: {
+								//实时数据生成
+								load: function () {
+										var series = this.series[0],
+												chart = this;
+										activeLastPointToolip(chart);
+										setInterval(function () {
+												var x = (new Date()).getTime(), // 当前时间
+														y = parseFloat(realtimedata);          // 随机值
+												series.addPoint([x, y], true, true);
+												activeLastPointToolip(chart);
+										}, 5000);
+								}
+						}
+				},
+				title: {
+						text: devicesname+'实时数据(5s刷新)'
+				},
+				subtitle: {
+		            text: '数据来源: '+realdata.name
+		        },
+				xAxis: {
+						type: 'datetime',
+						tickPixelInterval: 150
+				},
+				yAxis: {
+						title: {
+								text: devicesname
+						}
+				},
+				tooltip: {
+						formatter: function () {
+								return '<b>' + this.series.name + '</b><br/>' +
+										Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+										Highcharts.numberFormat(this.y, 2);
+						}
+				},
+				legend: {
+						enabled: true
+				},
+				series: [{
+						name: devicesname,
+						data: (function () {
+								// 生成随机值
+								var data = [],
+										time = (new Date()).getTime(),
+										i;
+
+								$('table').append('<caption>设备数据列表</caption>');
+								//添加表头
+								var $nodeThead = addNodeThead();
+								$('.add-thead').append($nodeThead);
+
+
+								$.each(list,function(index,history){
+									//alert(history);
+									//添加数据
+									realtimedata=history.content;
+									timee=history.createtime+"000";
+									data.push({
+										x: time + (-listlength) * 3000,
+										y: parseFloat(history.content)
+									});
+									listlength=listlength-1;
+
+									//添加表格
+									var $nodebase = addNode(index+1,history);
+									$('.add-tr').append($nodebase);
+
+								});
+
+
+
+								return data;
+						}())
+				}]
+		});
+
+	}
+
+		//添加表头
+		function addNodeThead(){
+
+			var theadnode = '<tr>'+
+								'<th>编号</th>'+
+								'<th>时间</th>'+
+								'<th>'+devicesname+'</th>'+
+							'</tr>';
+
+			return $(theadnode);
+
+		}
+
+		//添加表格
+		function addNode(ind,dataitems){
+
+			var datatime=stampToDate(dataitems.createtime+"000");
+
+			var cardnode = '<tr>'+
+								'<td>'+ind+'</td>'+
+								'<td>'+datatime+'</td>'+
+								'<td>'+dataitems.content+'</td>'+
+							'</tr>';
+
+			return $(cardnode);
+
+		}
+
+	function stampToDate(time) {
+			var date = new Date(Number(time));//将接收到的的String类型的时间转为数字类型
+			var y = date.getFullYear();
+			var m = date.getMonth() + 1;
+			var d = date.getDate();
+			var hour = date.getHours().toString();
+			var minutes = date.getMinutes().toString();
+			var seconds = date.getSeconds().toString();
+			if(hour < 10) {
+				hour = "0" + hour;
+			}
+			if(minutes < 10) {
+				minutes = "0" + minutes;
+			}
+			if(seconds < 10) {
+				seconds = "0" + seconds;
+			}
+			return y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d) + " " + hour + ":" + minutes + ":" + seconds;
+	}
+
+</script>
+</body>
+</html>

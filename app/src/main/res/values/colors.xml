@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="black">#dd000000</color>
+    <color name="white">#ffffffff</color>
+    <!--logo和welcome“进入”字体颜色-->
+    <color name="welcomeMain">#0074FF</color>
+    <!--首页状态栏-->
+    <color name="customPrimaryDark">#7FB3FF</color>
+    <!--所有背景-->
+    <color name="backgroundForAll">#f2f2f2</color>
+    <!--登录和注册状态栏-->
+    <color name="customPrimaryDarkForLogin">#bababa</color>
+    <!--登录注册背景-->
+    <color name="backgroundForLogin">#dfdfdf</color>
+    <!--登录注册字体颜色-->
+    <color name="backgroundForLoginFont">#aeafaf</color>
+
+
+
+    <color name="swipeColor1">#5BC0DE</color>
+    <color name="swipeColor2">#000000</color>
+    <color name="swipeColor3">#d7a101</color>
+    <color name="swipeColor4">#54c745</color>
+    <color name="swipeColor5">#f16161</color>
+</resources>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.steffenxuan.yncloudapp">
+
+    <!-- 请求网络 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 用于访问wifi网络信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> -->
+    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
+
+
+    <!-- 需要运行时注册的权限 -->
+    <!-- 用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 用于提高GPS定位速度 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 读取缓存数据 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 摄像头 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- &lt;!&ndash;用于读取手机当前的状态&ndash;&gt; -->
+    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE"/> -->
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name_CN"
+        android:roundIcon="@mipmap/logo"
+        android:supportsRtl="true"
+        android:name=".myApplication"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="87faec6f0bf3ea4c5add3495e2e6ea1e" />
+
+        <service android:name="com.amap.api.location.APSService" />
+
+        <!-- 启动加载页 -->
+        <activity
+            android:name=".mainBody.activity.startup_page"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 首次启动引导页 -->
+        <activity
+            android:name=".mainBody.activity.welcome_page"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <!-- 登录页 -->
+        <activity
+            android:name=".mainBody.activity.Login_page"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <!-- 云平台主界面 -->
+        <activity
+            android:name=".mainBody.activity.CloudMainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!-- 物联数据界面 -->
+        <activity
+            android:name=".mainBody.activity.Iot_DataActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBarHasAnim" />
+        <!-- 物联监控界面 -->
+        <activity
+            android:name=".mainBody.activity.video_monitorActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBarHasAnim" />
+        <!-- 云台控制界面 -->
+        <activity
+            android:name=".mainBody.activity.Video_ControlActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoTitle" />
+        <!-- 扫码界面 -->
+        <activity
+            android:name=".mainBody.activity.QR_CodeActivity"
+            android:launchMode="singleTop" />
+        <!-- 关于界面 -->
+        <activity
+            android:name=".mainBody.activity.AboutYNcloudActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.HasThemeAnim" />
+        <!-- 物联控制界面 -->
+        <activity
+            android:name=".mainBody.activity.IotControlActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBarHasAnim" />
+        <!-- 商城界面 -->
+        <activity
+            android:name=".mainBody.activity.ProductStoreActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.HasThemeAnim" />
+        <!-- 实时曲线界面 -->
+        <activity
+            android:name=".mainBody.activity.TimeCurveActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBarHasAnim" />
+        <!-- 全部设备信息界面 -->
+        <activity
+            android:name=".mainBody.activity.DeviceInfoActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBarHasAnim"/>
+
+        <!-- 更新界面 -->
+        <activity android:name=".mainBody.activity.UpdateRecords" />
+
+        <!-- 历史曲线界面 -->
+        <activity
+            android:name=".mainBody.activity.HistoryCurveActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBarHasAnim" />
+
+        <!-- 在线更新服务 -->
+        <service
+            android:name=".core.Service.UpdateService"
+            android:exported="false" />
+        <!-- 跳转安装界面 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.steffenxuan.yncloudapp"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepath" />
+        </provider>
+        <!-- 数据同比 -->
+        <activity
+            android:name=".mainBody.activity.YearOnYearCurveActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBarHasAnim" />
+    </application>
+
+</manifest>

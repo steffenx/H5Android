@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>云平台主界面</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<style type="text/css" media="screen">
+		body,html{
+			height: 100%;
+			overflow: hidden;
+			/*font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;*/
+			font-family:"Microsoft YaHei","宋体","Segoe UI","Lucida Grande",Helvetica,Arial,sans-serif,FreeSans,Arimo;
+		}
+		.main-could{
+			height: 100%;
+		}
+		/*----------上部----------*/
+		.could-top{
+			height: 52%;
+			background-image: url(images/yun2.png);
+			background-size: 100% 100%;
+			padding:10px;
+		}
+		.could-top .card-pic{
+            width: 60px;
+			height: 60px;
+			margin-top: 10px;
+			transform: translateX(50%);
+			border-radius: 50%;
+			overflow: hidden;
+			position: relative;
+			z-index: 4;
+			box-shadow: 0px 5px 30px 0px #ACEEEE, 0px 0px 0px 7px rgba(255, 255, 255, 0.5);
+			display:flex;
+			align-items:center; 
+			justify-content:center;
+			flex-direction: column;
+		}
+		.could-top .card-pic img{
+			width: auto;
+		    height: 100%;
+		}
+		.could-top .weather{
+			display: flex;
+			flex-direction: column;
+			margin-top: 100px;
+			justify-content: center;
+			text-align: center;
+			align-items: center;
+			color: #fff;
+		}
+		.could-top .weather .line{
+			display: flex;
+			flex-direction: row;
+			margin-bottom: 10px;
+		}
+		.could-top .weather .one h2{
+			font-size: 3.6em;
+			font-weight: 500;
+		}
+		.could-top .weather .one h4{
+			font-size: 3.5em;
+			padding-left: 5px;
+		}
+
+		.could-top .weather .one span,
+		.could-top .weather .two span,
+		.could-top .weather .three span{
+			padding-top:10px;
+			font-size: 20px;
+		}
+		/*--------溯源--------*/
+		.could-traceability{
+			height: 100px;
+			border-radius:8px;
+			position: fixed;
+			margin: auto;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			top: 75px;
+			z-index: 1;
+			display: flex;
+			justify-content: center;
+		}
+		.could-traceability .search{
+			margin: auto;
+		}
+		.could-traceability form {
+			border: 1px solid #EAF3FA;
+			border-radius: 5px;
+			position:relative;
+			width:380px;
+			box-shadow: 0 1px 20px #DBF9F9;
+			display: flex;
+		}
+		.could-traceability input,button {
+			border:none;
+			outline:none;
+		}
+		.could-traceability  input {
+
+			width:100%;
+			height:52px;
+			background:#fff;
+			top:0;
+			right:0;
+			color: #B0B0B0;font-size: 18px;font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+            text-align: center;
+		}
+		.could-traceability input::-webkit-input-placeholder {
+            color: #B0B0B0;font-size: 16px;font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+            text-align: center;
+        } 
+		.could-traceability  button {
+			background:#fff;
+			border-right: 1px solid #EBF2FA;
+			border-radius:5px 0px 0px 5px;
+			height:52px;
+			cursor:pointer;
+			width:70px;
+			top:0;
+		}
+		.could-traceability .right{
+			right: 0;
+			border-left: 1px solid #EBF2FA;
+			border-radius:0px 5px 5px 0px;
+		}
+		.could-traceability  button:before {
+			font-size:16px;
+			color:#91E6DF;
+		}
+		/*----------下部-----------*/
+		.could-bottom{
+			height: 48%;
+		}
+		.c-list{
+			height: auto;
+			margin-top: 60px;
+		}
+		.c-list .ul-container{
+			overflow: hidden;
+            clear: both; 
+            margin: 0 auto;
+		}
+		.c-list .ul-container li{
+			display: flex;
+            flex-wrap: wrap;
+            float: left;
+            height: auto;
+            width: 100%;
+		}
+		.c-list .ul-container li .tab-container{
+			width: 30%;
+
+            position: relative;  
+            height: auto;
+            border:1px solid #f1f1f1;
+            margin: auto;	
+		}
+		.c-list .ul-container li .tab-container h4{
+			margin-top: 10px;
+			color: #777777;
+		}
+		.c-list .ul-container li .tab-container a{
+			display: block;
+            color: #051B28;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: normal;
+            height: auto;
+            margin: 10px auto;
+            background-clip: content-box;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+			-webkit-align-items: center;
+            align-items: center;
+
+		}
+		.c-list .ul-container li .tab-container a .li-pic{
+			width: 80px;
+			height: 100px;
+			display:flex;
+			-webkit-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            margin: 10px;
+		}
+		.c-list .ul-container li .tab-container a .li-pic .pic{
+			width: 70px;
+		}
+		.c-list .ul-container li .tab-container a .li-pic img{
+			width: 100%;
+			height: auto;
+		}
+		/*----------------------滑动小圆点----------------------------*/
+		.dot-container{
+		    width: 100%;
+		    background:transparent;
+		    position: absolute;
+		    text-align:center;
+		    margin-top: 20px;
+		}
+
+		.dot-container span{
+		    background-color:#ddd;
+		    border-radius: 50%;
+		    width: 6px;
+		    height: 6px;
+		    display: inline-block;
+		    margin:0 2px
+		}
+
+		.dot-container span.act{
+		    background-color:#2196f3;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="main-could">
+		<div class="could-top">
+			<!--<div class="card-pic">-->
+				<!--<img src="images/tx.jpg" alt="">-->
+			<!--</div>-->
+			<div class="weather">
+				<div class="one line">
+					<h2 class="temperature-degree">--</h2>
+					<h4>℃&nbsp;</h4>
+					<span class="temperature-description">--</span>
+				</div>
+				<div class="two line">
+					<span class="location-date">--&nbsp;</span>
+				</div>
+				<div class="three line">
+					<span class="location-timezone">--</span>
+				</div>
+			</div>
+		</div>
+		<div class="could-traceability">
+			<div class="search">
+		        <form onSubmit="return false;">
+		        	<button type="submit" onclick="SweepCode()"><img src="images/扫码.png" alt=""></button>
+		            <input type="text" placeholder="请输入溯源码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入溯源码'" name="cname">
+		            <button type="submit" class="right"><img src="images/搜索.png" alt=""></button>
+		        </form>
+		    </div>
+		</div>
+		<div class="could-bottom">
+			<div class="c-list">
+					<ul class="ul-container">
+						<li>
+							<div class="tab-container">
+								<a>
+									<div class="li-pic" id="iotdata">
+										<div class="pic">
+											<img src="images/物联网.png" alt="">
+										</div>	
+									</div>
+									<h4>物联网系统</h4>
+								</a>
+							</div>
+
+							<div class="tab-container">
+								<a>
+									<div class="li-pic" id="videomonitor">
+										<div class="pic">
+											<img src="images/摄像头.png" alt="">
+										</div>	
+									</div>
+									<h4>视频监控系统</h4>
+								</a>
+							</div>
+
+							<!--<div class="tab-container">-->
+								<!--<a>-->
+									<!--<div class="li-pic" id="iotcontrol">-->
+										<!--<div class="pic">-->
+											<!--<img src="images/摄像头.png" alt="">-->
+										<!--</div>-->
+									<!--</div>-->
+									<!--<h4>实时曲线</h4>-->
+								<!--</a>-->
+							<!--</div>-->
+
+						</li>
+						<!--<li>-->
+							<!--<div class="tab-container">-->
+								<!--<a>-->
+									<!--<div class="li-pic" onclick="window.open('../lay-eggs/demo3.html','_self')">-->
+										<!--<img src="images/养鸡.png" alt="">-->
+									<!--</div>-->
+									<!--<h4>养鸡助手</h4>-->
+								<!--</a>-->
+							<!--</div>-->
+											<!---->
+						<!--</li>-->
+					</ul>
+
+					<div class="dot-container">
+
+					</div>
+			</div>
+
+		</div>
+	</div>
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/MenuSlide.js"></script>
+	<script type="text/javascript">
+		//NavTouch('.main-tab');
+
+		// 弹性滑动
+
+		//NavTouch('.c-list',{elastic:true,speed:'0.3s',timing:'linear'});
+		$("#iotdata").click(function(){
+			window.android.get_data("iotdata");
+		});
+		$("#videomonitor").click(function(){
+			window.android.get_data("videomonitor");
+		});
+		$("#iotcontrol").click(function(){
+			window.android.get_data("iotcontrol");
+		});
+
+		function SweepCode(){
+			window.android.get_data("sweepcode");
+		}
+
+		var deviceWidth = parseInt(window.screen.width);  //获取当前设备的屏幕宽度
+		//alert(deviceWidth);
+		if(deviceWidth>=400){
+			document.write('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">');
+		}
+		else if(deviceWidth<400&&deviceWidth>=360){
+			document.write('<meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9, user-scalable=no">');
+		}
+		else{
+			document.write('<meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=no">');
+		}
+
+	</script>
+	<script>
+	function get_android(location){
+		//alert(location);
+		let long = location.long;//经度
+		let lat = location.lat;//纬度
+
+		//地区
+		let locationTimezone=document.querySelector(".location-timezone");
+		//温度
+		let temperatureDegree=document.querySelector(".temperature-degree");
+		//描述
+		let temperatureDescription=document.querySelector(".temperature-description");
+		//日期
+		let locationDate=document.querySelector(".location-date");
+
+		locationDate.textContent=location.locationTime;//日期
+
+		const proxy="https://cors-anywhere.herokuapp.com/";
+		const api=`https://free-api.heweather.com/s6/weather?location=${long},${lat}&key=df6a71af9eb34a95b2fa5d1660b9c818`;
+
+		fetch(api)
+			.then(response=>{return response.json();})
+			.then(data=>{
+				//alert(JSON.stringify(data));
+				const{cond_txt,fl,cond_code} = data.HeWeather6[0].now;
+				const{parent_city,location}=data.HeWeather6[0].basic;
+
+				temperatureDegree.textContent=fl;
+				temperatureDescription.textContent=cond_txt;
+				locationTimezone.textContent=parent_city+" "+location;
+
+				var obj = new Object();
+				obj.fl=fl;
+				obj.cond_txt=cond_txt;
+				obj.parent_city=parent_city;
+				obj.location=location;
+				var weatherdata = JSON.stringify(obj);
+				window.android.set_weather(weatherdata);
+			});
+	}
+
+	function get_oldandroid(location){
+
+		//地区
+		let locationTimezone=document.querySelector(".location-timezone");
+		//温度
+		let temperatureDegree=document.querySelector(".temperature-degree");
+		//描述
+		let temperatureDescription=document.querySelector(".temperature-description");
+		//日期
+		let locationDate=document.querySelector(".location-date");
+		temperatureDegree.textContent=location.fl;
+		temperatureDescription.textContent=location.cond_txt;
+		locationTimezone.textContent=location.parent_city+" "+location.location;
+		locationDate.textContent=location.locationTime;
+	}
+
+	</script>
+</body>
+</html>

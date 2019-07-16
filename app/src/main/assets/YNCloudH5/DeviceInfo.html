@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<style type="text/css" media="screen">
+		body,html{
+			background: #f2f2f2;
+			height: 98.5%;
+			box-sizing: border-box;
+		}
+		.main-floor{
+			box-sizing: border-box;
+			background: #fff;
+			height: 100%;
+			border-radius: 12px;
+            margin: 10px;
+		}
+		/*---------------------上部-----------------------*/
+		.main-floor .main-top{
+			height: 50%;
+			text-align:center;
+		}
+		.main-floor .main-top .data-round{
+			margin: auto;
+		}
+		/*---------------------下部-----------------------*/
+		.main-floor .main-bottom{
+			height: 50%;
+		}
+        .main-floor .main-bottom .ul-container{
+            overflow: hidden;
+            clear: both; 
+            margin: 0 auto;
+        }
+        .main-floor .main-bottom .ul-container li{
+            display: flex;
+            flex-wrap: wrap;
+            float: left;
+            height: auto;
+            width: 100%;
+        }
+        .main-floor .main-bottom .ul-container li .tab-container{
+            width: 33.333%;
+            margin: auto 0;
+            position: relative;
+    
+            height: auto;
+        }
+        .main-floor .main-bottom .ul-container li .tab-container a{
+            display: block;
+            color: #051B28;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: normal;
+            height: auto;
+            text-align: center;
+            margin: 10px auto;
+            background-clip: content-box;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .main-floor .main-bottom .ul-container li .tab-container a .tab-text{
+            display: flex;
+            flex-direction: row;
+            height: auto;
+            margin: 10px auto;
+        }
+        .main-floor .main-bottom .ul-container li .tab-container a .tab-text .area{
+            background: #d0101c;
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            margin: auto 5px;  
+        }
+        .main-floor .main-bottom .ul-container li .tab-container a .tab-text h4{
+            margin: auto 5px;
+        }
+        .main-floor .main-bottom .ul-container li .tab-container a h1{
+            font-weight: 700;
+        }
+        .main-floor .main-bottom .ul-container li .tab-container a h1 span{
+            font-size: 14px;
+        }
+        .main-floor .main-bottom .ul-container li .tab-container a .tab-button{
+            width: 60px;
+            height: 25px;
+            border: 1px solid #e7e7e7;
+            border-radius: 20px;
+            margin: 10px auto;
+            font-size: 12px;
+            line-height: 25px;
+        }
+	</style>
+</head>
+<body>
+	<div class="main-floor">
+		<div class="main-top">
+			<canvas class="data-round" id="canvas" width="300" height="300" style="background:#fff;"></canvas>
+		</div>
+		<div class="main-bottom">
+			<ul class="ul-container">
+                <li>
+                    <div class="tab-container">
+                        <a>
+                            <div class="tab-text">
+                                <div class="area" style="background:#0da314"></div>
+                                <h4>摄像头数</h4>
+                            </div>
+                            <h1 id="countVideo">--<span>台</span></h1>
+                            <div class="tab-button">
+
+                            </div>
+                        </a>
+                    </div>
+                    <div class="tab-container">
+                        <a>
+                            <div class="tab-text">
+                                <div class="area" style="background:#00e532"></div>
+                                <h4>设备总数</h4>
+                            </div>
+                            <h1 id="countDevices">--<span>台</span></h1>
+                            <div class="tab-button">
+
+                            </div>
+                        </a>
+                    </div>
+                    <div class="tab-container">
+                        <a>
+                            <div class="tab-text">
+                                <div class="area" style="background:#00e532"></div>
+                                <h4>数据条数</h4>
+                            </div>
+                            <h1 id="countDevicesData">0<span>条</span></h1>
+                            <div class="tab-button">
+
+                            </div>
+                        </a>
+                    </div>
+                    <div class="tab-container">
+                        <a>
+                            <div class="tab-text">
+                                <div class="area"></div>
+                                <h4>报警设备</h4>
+                            </div>
+                            <h1>--<span>台</span></h1>
+                            <div class="tab-button">
+
+                            </div>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+		</div>
+	</div>
+
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+    function get_android_data(data){
+
+        var qaedasCount=data.qaedasCount;
+        var qaedasinfo=$.parseJSON(qaedasCount)
+        //alert(qaedasinfo.countVideo);
+        //stratcanvas(qaedasinfo);
+        stratcanvas(qaedasinfo.countDevices,100);
+        $("#countVideo").html(qaedasinfo.countVideo+"<span>台</span>");
+        $("#countDevices").html(qaedasinfo.countDevices+"<span>台</span>");
+        $("#countDevicesData").html(qaedasinfo.countDevicesData+"<span>条</span>");
+    }
+</script>
+<script type="text/javascript">
+	//window.addEventListener('load',()=>{
+	function stratcanvas(allDevices,percentage){
+
+		var canvas = document.getElementById('canvas'),  //获取canvas元素
+	        context = canvas.getContext('2d'),  //获取画图环境，指明为2d
+	        centerX = canvas.width/2,   //Canvas中心点x轴坐标
+	        centerY = canvas.height/2,  //Canvas中心点y轴坐标
+	        rad = (Math.PI*1.6)/100, //将360度分成100份，那么每一份就是rad度
+	        target = 0.0, //加载的数
+            motionCircle=15,//运动圈线宽
+            staticCircle=10,//静止圈线宽
+            R=120;
+
+	    //绘制运动圈
+	    function blueCircle(n){
+            context.save();
+            var my_gradient=context.createLinearGradient(20,20,250,0);
+			my_gradient.addColorStop(0,"#f9c413");
+			my_gradient.addColorStop(1,"#ff9405");
+			context.fillStyle=my_gradient;
+            context.strokeStyle = my_gradient; //设置描边样式
+            context.lineWidth = motionCircle; //设置线宽
+            context.shadowBlur=20;
+            context.shadowOffsetX=0;
+            context.shadowOffsetY=0;
+            context.shadowColor="#f9c413";
+            context.beginPath(); //路径开始
+            context.arc(centerX, centerY, R , Math.PI*7/10, Math.PI*7/10 +n*rad, false); //用于绘制圆弧context.arc(x坐标，y坐标，半径，起始角度，终止角度，顺   时针/逆时针)
+            context.stroke(); //绘制
+            context.closePath(); //路径结束
+            context.restore();
+        }
+
+        //绘制静止外圈
+        function whiteCircle(){
+            context.save();
+            context.beginPath();
+            context.lineWidth = staticCircle; //设置线宽
+            context.strokeStyle = "#f7f7f8";
+            context.arc(centerX, centerY, R , Math.PI*7/10, Math.PI*3/10, false);
+            context.stroke();
+            context.closePath();
+            context.restore();
+        }  
+
+        //百分比文字绘制
+        function text(n){
+            context.save(); //save和restore可以保证样式属性只运用于该段canvas元素
+            context.beginPath();
+            context.fillStyle = "#000"; //设置描边样式
+            context.font = "40px Arial"; //设置字体大小和字体
+            //绘制字体，并且指定位置
+            //context.fillText(n.toFixed(0)+"%", centerX-30, centerY+10);//取小数
+            context.fillText(n.toFixed(0)+"%", centerX-40, centerY+20);
+            context.stroke(); //执行绘制
+            context.restore();
+        } 
+        function text1(){
+            context.save(); //save和restore可以保证样式属性只运用于该段canvas元素
+            context.beginPath();
+            context.fillStyle = "#b1b1b1"; //设置描边样式
+            context.font = "18px Arial"; //设置字体大小和字体
+            //绘制字体，并且指定位置
+            //context.fillText(n.toFixed(0)+"%", centerX-30, centerY+10);//取小数
+            context.fillText("正常运行设备", centerX-48, centerY-30);
+            context.stroke(); //执行绘制
+            context.restore();
+        } 
+        function text2(){
+            context.save(); //save和restore可以保证样式属性只运用于该段canvas元素
+            context.beginPath();
+            context.fillStyle = "#fbb511"; //设置描边样式
+            context.font = "bold 24px Arial"; //设置字体大小和字体
+            //绘制字体，并且指定位置
+            //context.fillText(n.toFixed(0)+"%", centerX-30, centerY+10);//取小数
+
+            let ad=String(allDevices);
+            if(ad.length==1||ad.length==2){
+                context.fillText(allDevices, centerX-11, centerY+100);
+            }
+            if(ad.length==3){
+                context.fillText(allDevices, centerX-20, centerY+100);
+            }
+            if(ad.length==4){
+                context.fillText(allDevices, centerX-25, centerY+100);
+            }
+            if(ad.length==5){
+                context.fillText(allDevices, centerX-38, centerY+100);
+            }
+            if(ad.length==6){
+                context.fillText(allDevices, centerX-44, centerY+100);
+            }
+
+            context.stroke(); //执行绘制
+            context.restore();
+        } 
+        function text3(){
+            context.save(); //save和restore可以保证样式属性只运用于该段canvas元素
+            context.beginPath();
+            context.fillStyle = "#b1b1b1"; //设置描边样式
+            context.font = "18px Arial"; //设置字体大小和字体
+            //绘制字体，并且指定位置
+            //context.fillText(n.toFixed(0)+"%", centerX-30, centerY+10);//取小数
+            context.fillText("全部设备总数", centerX-52, centerY+130);
+            context.stroke(); //执行绘制
+            context.restore();
+        } 
+
+        let loop = setInterval(() => {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            whiteCircle();
+            text(target);
+            text1();
+            text2();
+            text3();
+            blueCircle(target);
+            if(target >= percentage){clearInterval(loop);}
+            target += 1;
+            // console.log(speed);
+            // if(speed=="50"){clearInterval(loop);}
+        },10)
+
+	}
+</script>
+<script>
+    var deviceWidth = parseInt(window.screen.width);  //获取当前设备的屏幕宽度
+    //alert(deviceWidth);
+    if(deviceWidth>=400){
+        document.write('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">');
+    }
+    else if(deviceWidth<400&&deviceWidth>=360){
+        document.write('<meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9, user-scalable=no">');
+    }
+    else{
+        document.write('<meta name="viewport" content="width=device-width, initial-scale=0.7, maximum-scale=0.7, user-scalable=no">');
+    }
+    
+</script>
+</body>
+</html>

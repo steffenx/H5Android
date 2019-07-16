@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>视频监控</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<style type="text/css">
+		body,html{
+			height: 100%;
+		}
+		.main-container{
+			background: #f1f1f1;
+		}
+		.card-container{
+			background: #fff;
+			width: auto;
+			height: auto;
+			margin-bottom: 10px;
+		}
+		.card-container .card-title{
+			height: 50px;
+			display: flex;
+			flex-direction: row;
+			margin:auto;
+			justify-content: center;
+			text-align: center;
+		}
+		.card-container .card-title span{
+			margin:auto;
+		}
+		.card-container .card-video{
+			background: #000;
+			height: 300px;
+			display: flex;
+			text-align: center;
+			justify-content: center;
+		}
+		.card-container .card-context{
+			height: 30px;
+		}
+		.card-container .card-context span{
+			padding: 20px;
+			line-height: 30px;
+		}
+		.card-container .card-menu{
+			height: 50px;
+			display: flex;
+			flex-direction: row;
+		}
+		.card-container .card-menu .menu-container{
+			width: 33.33%;
+			margin: auto 0;
+            position: relative;  
+            height: 50px;
+            border:1px solid #f1f1f1;
+		}
+		.card-container .card-menu .menu-container .menu{
+			display: block;
+            color: #051B28;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: normal;
+            height: auto;
+            margin: 10px auto;
+            background-clip: content-box;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+			-webkit-align-items: center;
+            align-items: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="main-container">
+		<div class="card-container">
+			<div class="card-title">
+				<span>忠县马灌水产基地</span>
+				<span>马灌水产(A)网关3</span>
+			</div>
+			<div class="card-video">
+				<video  id="myPlayer" 
+						width="400"
+    					height="300"
+						poster="https://statics.ys7.com/device/assets/imgs/public/homeDevice.jpeg" 
+						controls 
+						playsInline 
+						webkit-playsinline 
+						[autoplay]>
+
+			    	<source src="http://hls01open.ys7.com/openlive/ee7812c7ae1948d587202d9129e99f1b.m3u8" type="" />
+				</video>
+			</div>
+			<div class="card-context">
+				<span>1559441395</span>
+				<span>球机</span>
+			</div>
+			<div class="card-menu" id="one">
+				<div class="menu-container">
+					<div class="menu">
+						<span>清晰度</span>
+					</div>
+				</div>
+				<div class="menu-container">
+					<div class="menu" >
+						<span>播放</span>
+					</div>
+				</div>
+				<div class="menu-container">
+					<div class="menu">
+						<span>控制</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-container">
+			<div class="card-title">
+				<span>忠县马灌水产基地</span>
+				<span>马灌水产(A)网关3</span>
+			</div>
+			<div class="card-video">
+				<video  id="myPlayer" 
+						width="400"
+    					height="300"
+						poster="https://statics.ys7.com/device/assets/imgs/public/homeDevice.jpeg" 
+						controls 
+						playsInline 
+						webkit-playsinline 
+						[autoplay]>
+
+			    	<source src="http://hls01open.ys7.com/openlive/ee7812c7ae1948d587202d9129e99f1b.m3u8" type="" />
+				</video>
+			</div>
+			<div class="card-context">
+				<span>1559441395</span>
+				<span>球机</span>
+			</div>
+			<div class="card-menu">
+				<div class="menu-container">
+					<div class="menu">
+						<span>清晰度</span>
+					</div>
+				</div>
+				<div class="menu-container">
+					<div class="menu">
+						<span>播放</span>
+					</div>
+				</div>
+				<div class="menu-container">
+					<div class="menu">
+						<span>控制</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-container">
+			<div class="card-title">
+				<span>忠县马灌水产基地</span>
+				<span>马灌水产(A)网关3</span>
+			</div>
+			<div class="card-video">
+				<video  id="myPlayer" 
+						width="400"
+    					height="300"
+						poster="https://statics.ys7.com/device/assets/imgs/public/homeDevice.jpeg" 
+						controls 
+						playsInline 
+						webkit-playsinline 
+						[autoplay]>
+
+			    	<source src="http://hls01open.ys7.com/openlive/ee7812c7ae1948d587202d9129e99f1b.m3u8" type="" />
+				</video>
+			</div>
+			<div class="card-context">
+				<span>1559441395</span>
+				<span>球机</span>
+			</div>
+			<div class="card-menu">
+				<div class="menu-container">
+					<div class="menu">
+						<span>清晰度</span>
+					</div>
+				</div>
+				<div class="menu-container">
+					<div class="menu">
+						<span>播放</span>
+					</div>
+				</div>
+				<div class="menu-container">
+					<div class="menu">
+						<span>控制</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/ezuikit.js"></script>
+<script type="text/javascript">
+$("#one").click(function(){
+			player.play();
+		});
+</script>
+<script type="text/javascript">
+	var player = new EZUIKit.EZUIPlayer('myPlayer');
+	
+</script>
+</body>
+</html>

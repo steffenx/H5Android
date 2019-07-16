@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_control"
+        android:orderInCategory="100"
+        android:title="实时曲线"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_contro2"
+        android:orderInCategory="100"
+        android:title="数据同比"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_contro3"
+        android:orderInCategory="100"
+        android:title="历史曲线"
+        app:showAsAction="never" />
+</menu>

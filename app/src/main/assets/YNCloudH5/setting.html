@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>登录</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+	<style type="text/css">
+
+
+		body,html{
+			height: 100%;
+			overflow: hidden;
+		}
+		.login-container{
+			height: 100%;
+			box-sizing: border-box;
+		}
+		/*--------------图标--------------*/
+		.login-logo{
+			background: #fff;
+			height: 25%;
+		}
+		.login-logo .logo-pic{
+			width: 100px;
+			height: 100px;
+			display:flex;
+			align-items:center;
+			justify-content:center;
+			margin: auto;
+			transform: translateY(60%);
+		}
+		.login-logo .logo-pic img{
+			width: auto;
+			height: 100%;
+		}
+		/*-------------登录框-------------*/
+		.login-from{
+			background: #fff;
+			height: 55%;
+		}
+		.login-from .logn-input{
+		    background: #fff;
+		    width: auto;
+		    height: auto;
+		    padding: 10px 0;
+		}
+		.login-from .input-group{
+			background: #fff;
+			width: 320px;
+			height: 60px;
+			border-radius: 35px;
+			margin: auto;
+			margin-bottom: 15px;
+			padding: 0 15px;
+		}
+		.login-from .input-group span{
+			margin: auto;
+			display: flex;
+			text-align: center;
+			justify-content: center;
+			color: #777;
+			font-size: 18px;
+		}
+
+		#psd{
+			-webkit-text-security:disc;
+            text-security:disc; /*使用指定形状代替文字显示 circle圆圈 disc 圆形 square 正方形*/
+		}
+
+        .login-from .zhanwei{
+            position: relative;
+            height: 20%;
+        }
+        /*--------------按钮-----------------*/
+		.login-from  .login-btn{
+			position: relative;
+		    overflow: hidden;
+		    width: 70px;
+		    height: 70px;
+		    margin:  auto;
+		    border-radius: 50%;
+
+			/*line-height: 100px;*/
+			z-index: 10;
+            /*居中*/
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+		}
+
+		@keyframes clickdiv{
+		    0% {
+		        transform: scale(1);
+		    }
+		    25% {
+		        transform: scale(0.95);
+		    }
+		    50% {
+		        transform: scale(0.9);
+		    }
+		    75% {
+		        transform: scale(0.95);
+		    }
+		    100% {
+		        transform: scale(1);
+		    }
+		}
+		.login-from  .login-btn::before{
+	        content: "";
+	        position: absolute;
+	        top: -100%;
+	        left: -100%;
+	        bottom: -100%;
+	        right: -100%;
+	        background-size: 100% 100%;
+	        animation: bgposition 22s infinite linear normal;
+	        z-index: -1;
+    	}
+    	@keyframes bgposition {
+		    0% {
+		        transform: translate(30%, 30%);
+		    }
+		    25% {
+		        transform: translate(30%, -30%);
+		    }
+		    50% {
+		        transform: translate(-30%, -30%);
+		    }
+		    75% {
+		        transform: translate(-30%, 30%);
+		    }
+		    100% {
+		        transform: translate(30%, 30%);
+		    }
+		}
+		.login-from  .login-btn img{
+			width: auto;
+			height: auto;
+		}
+		/*------------app信息-------------*/
+		.login-information{
+			background: #fff;
+			height: 20%;
+		}
+		.login-information .container{
+			height: 70px;
+			text-align: center;
+			position: fixed; /*or前面的是absolute就可以用*/
+            margin:auto;
+			left:0;
+			right:0;
+			bottom:0;
+			font-size: 15px;
+		}
+		.login-information .container a{
+			font-weight: 700;
+		}
+	</style>
+</head>
+<body>
+
+<div class="login-container">
+	<div class="login-logo">
+		<div class="logo-pic">
+			<img src="images/appLoginLogo.png" alt="">
+		</div>
+	</div>
+	<div class="login-from">
+		<div class="logn-input">
+			<div class="input-group">
+				<span >当前版本  1.01测试版</span>
+				<span>测试版不稳定，遇到问题请及时联系我们。重启app是解决问题的好方法！谢谢你们的支持。</span>
+			</div>
+			<div class="input-group">
+				<span></span>
+			</div>
+			<div class="input-group">
+				<span>另有网页版。详情请访问http://120.79.76.116:8001</span>
+			</div>
+		</div>
+		<div class="zhanwei"></div>
+		
+	</div>
+	<div class="login-information">
+		<div class="container">
+			<div class="top">
+				
+			</div>
+			<div class="bottom">
+				<a href="http://y.farmereasy.com:7100/APP/YNCloudH5/update.html" title="">版本预览</a>
+				<a href="#" title="">《易农云服务条款》</a>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script>
+    function getwindowHeight(){
+        var windowWidth, windowHeight;
+        if (self.innerHeight) { // all except Explorer
+            if (document.documentElement.clientWidth) {
+                windowWidth = document.documentElement.clientWidth;
+            } else {
+                windowWidth = self.innerWidth;
+            }
+            windowHeight = self.innerHeight;
+        } else {
+            if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
+                windowWidth = document.documentElement.clientWidth;
+                windowHeight = document.documentElement.clientHeight;
+            } else {
+                if (document.body) { // other Explorers
+                    windowWidth = document.body.clientWidth;
+                    windowHeight = document.body.clientHeight;
+                }
+            }
+        }
+        return windowHeight;
+    }
+</script>
+<script type="text/javascript">
+	$("#tel").focus(function(){
+		$(".login-from .input-group .user").css("visibility","visible");
+	})
+	$("#tel").blur(function(){
+		$(".login-from .input-group .user").css("visibility","hidden");
+	})
+	$("#psd").focus(function(){
+		$(".login-from .input-group .psd").css("visibility","visible");
+	})
+	$("#psd").blur(function(){
+		$(".login-from .input-group .psd").css("visibility","hidden");
+	})
+	$(".fa-close").on("mousedown",function(e) {
+            e.preventDefault();
+    })
+    $(".fa-close").on("click",function () {
+            $(this).prev("input").val("").focus();
+    });
+
+    // var visualheight = $(window).height();
+    var visualheight = getwindowHeight();
+    $(window).resize(function () {
+        var newvisualheight = getwindowHeight();
+        var a=visualheight-newvisualheight;
+        if(visualheight-newvisualheight>100){
+            //alert(visualheight+"*"+newvisualheight);
+            $(".zhanwei").css("display","none");
+            $(".login-logo .logo-pic").css("transform","translateY(13%)");
+        }
+        else{
+            //alert(visualheight+"*"+newvisualheight);
+            $(".zhanwei").css("display","block");
+            $(".login-logo .logo-pic").css("transform","translateY(60%)");
+        }
+    })
+
+    function _Randomize(b,e){
+        if(!b && b!=0 || !e){return "?";}
+        return Math.floor( ( Math.random() * e ) + b );
+    }
+    var COLORARR=["#48c6ef","#6f86d6","#4facfe","#00f2fe","#43e97b","#38f9d7","#fac17d","#8ec5fc","#fa709a","#e7f0fd",];
+
+    function sendNum(arr){
+        return arr[Math.floor(Math.random()*arr.length)];
+    }
+    var deviceHeight = parseInt(window.screen.height);  //获取当前设备的屏幕宽度
+    if(deviceHeight>=736){
+        // document.write('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">');
+        $('.login-from  .login-btn').append("<style>.login-from .login-btn::before{background:radial-gradient"+
+        "(circle at top,  "+
+        sendNum(COLORARR)+" 0%, "+
+        sendNum(COLORARR)+" 25%, "+
+        sendNum(COLORARR)+" 50%,"+
+        sendNum(COLORARR)+" 75%,"+
+        sendNum(COLORARR)+" 100%);}</style>");
+    }
+    else if(deviceHeight<736&&deviceHeight>=667){
+        document.write('<meta name="viewport" content="width=device-width, initial-scale=0.85, maximum-scale=0.85, user-scalable=no">');
+        $('.login-from  .login-btn').append("<style>.login-from .login-btn::before{background:radial-gradient"+
+        "(circle at top,  "+
+        sendNum(COLORARR)+" 0%, "+
+        sendNum(COLORARR)+" 25%, "+
+        sendNum(COLORARR)+" 50%,"+
+        sendNum(COLORARR)+" 75%,"+
+        sendNum(COLORARR)+" 100%);}</style>");
+    }
+    else{
+        $(".login-from .input-group").css("width","350px");
+        $(".login-from .input-group input").css("width","260px");
+        document.write('<meta name="viewport" content="width=device-width, initial-scale=0.70, maximum-scale=0.70, user-scalable=no">');
+        $('.login-from  .login-btn').append("<style>.login-from .login-btn::before{background:radial-gradient"+
+        "(circle at top,  "+
+        sendNum(COLORARR)+" 0%, "+
+        sendNum(COLORARR)+" 25%, "+
+        sendNum(COLORARR)+" 50%,"+
+        sendNum(COLORARR)+" 75%,"+
+        sendNum(COLORARR)+" 100%);}</style>");
+    }
+
+    $(".login-from  .login-btn").click(function (){
+    	$(".cnt").css("display","flex");
+        var username=$("#tel").val();
+        var userpassword=$("#psd").val();
+        <!--var myMap = new Map();-->
+		<!--myMap.set('username', username);-->
+		<!--myMap.set('userpassword', userpassword);-->
+
+		var obj = new Object();
+        obj.account = username;
+        obj.password = userpassword;
+        var json = JSON.stringify(obj);
+
+
+        $(this).css("animation","clickdiv 0.5s linear 0s 1 forwards running");
+        setTimeout(function(){
+    　　　　$(".login-from  .login-btn").css("animation","none");
+    　　},500);
+    	window.android.get_data(json);
+    });
+
+</script>
+
+</body>
+</html>

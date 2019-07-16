@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">farmereasyCloudApp</string>
+    <string name="app_name_CN">易农云</string>
+    <string name="entry">进入</string>
+    <!--登录界面-->
+    <string name="hint_for_account"><font size="15">&#160;&#160;&#160;Username</font></string>
+    <string name="hint_for_pass"><font size="15">&#160;&#160;&#160;Password</font></string>
+    <string name="login">登 录 云</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="user_register">用户注册</string>
+    <string name="service">服务条款</string>
+    <!--动态权限-->
+    <string name="notifyTitle">提示</string>
+    <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
+    <string name="setting">设置</string>
+    <string name="cancel">取消</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_control">设备控制</string>
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    tools:context="com.example.steffenxuan.yncloudapp.mainBody.activity.Iot_DataActivity"
+    android:orientation="vertical">
+
+    <!--<com.hjq.bar.TitleBar-->
+        <!--android:id="@+id/mTitleBar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="75dp"-->
+        <!--android:background="@drawable/shape_gradient"-->
+        <!--app:barStyle="transparent"-->
+        <!--app:leftTitle=""-->
+        <!--app:rightTitle=""-->
+        <!--app:title="物联数据" />-->
+    <android.support.design.widget.AppBarLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#3DCECE"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        </WebView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+</LinearLayout>

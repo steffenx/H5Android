@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single"
+        >
+        <item
+            android:id="@+id/single_1"
+            android:icon="@mipmap/myinfo"
+            android:title="我的消息" />
+
+        <item
+            android:id="@+id/single_3"
+            android:icon="@mipmap/shop"
+            android:title="商城" />
+
+        <item
+            android:id="@+id/single_2"
+            android:icon="@mipmap/back"
+            android:title="退出登录" />
+
+    </group>
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/item_2"
+                android:icon="@mipmap/vip"
+                android:title="会员中心" />
+
+            <item
+                android:id="@+id/item_3"
+                android:icon="@mipmap/setting"
+                android:title="设置" />
+
+            <!--<item-->
+                <!--android:id="@+id/item_2"-->
+                <!--android:icon="@mipmap/ic_launcher"-->
+                <!--android:title="会员中心" />-->
+
+        </menu>
+    </item>
+</menu>

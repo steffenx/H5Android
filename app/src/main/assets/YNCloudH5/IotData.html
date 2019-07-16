@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>物联数据</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="css/loading.css">
+	<style type="text/css">
+		body,html{
+			background: #f2f2f2;
+			height: 100%;
+			overflow:hidden;
+		}
+		/*-------------头部导航----------------*/
+		.head{
+			width: auto;
+			height: 13%;
+			border-radius: 12px;
+			background: #fff;
+			margin:20px 12px;
+			display: flex;
+			flex-direction: row;
+			overflow-x: auto; // 子元素的宽度大于父元素的即可滚动
+            overflow-y: hidden;
+		}
+		.head::-webkit-scrollbar {
+        	display: none;//清除滚动条
+    	}
+		.head-button{
+			background: #f7f8f7;
+			width: 130px;
+			height: 40px;
+			border-radius: 30px;
+			box-shadow: 1px 5px 0px #f1f4ff;
+			margin: auto 10px; 
+		}
+		.head-nav{
+			display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            float: left;  // 使其脱离文档流 宽度为所有字元素的和
+            min-width: 100%;
+
+		}
+
+		.head-button:hover{
+			background: #0074FF;
+			box-shadow: 0px 5px 0px #fff;
+		}
+		.head-button span{
+			text-align: center;
+			display:block;
+			transform: translateY(50%);
+			color: #aeafaf;
+			font-size: 14px;
+			font-weight: 700;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+		.head-button span:hover{
+			color: #fff;
+		}
+		/*----------------别针-------------------*/
+		.floating .floating-pin{
+			width: 70px;
+			height: 65px;
+			position: relative;
+			margin-left: 15px;
+			margin-top: -41px;
+			display:flex;
+			align-items:center; 
+			justify-content:center;
+		}
+
+		.floating .floating-pin img{
+			width:auto;
+			height:100%;
+		}
+		@media screen and (max-width: 360px) {
+			.floating .floating-pin img{
+				height:75%;
+			}
+		}
+		.floating .pr{
+			float: right;
+			margin-right: 12px;
+		}
+		.floating .pl{
+			float: left;
+		}
+		/*--------------------主--------------------*/
+		.main{
+			background: #fff;
+			width: auto;
+			height: 79% ;
+			border-radius: 12px;
+			margin: 20px 12px;
+		}
+		@media screen and (max-width: 375px) {
+			.main{
+				height: 78%;
+			}
+		}
+		@media screen and (max-width: 320px) {
+			.main{
+				height: 75%;
+			}
+		}
+		/*---------------------主-导航--------------------*/
+		.main .main-nav{
+			height: 45px;
+			display: flex;
+			flex-direction: row;
+			min-width: 100%;
+			border-bottom: 2px solid #f3f3f3;
+		}
+		.main .main-nav .nav-button{
+			background: #fff;
+			width: 140px;
+			height: 35px;
+			border-radius: 10px;
+			margin: auto;
+		}
+		.main .main-nav .bview{
+			background: #7FB3FF;
+		}	
+		.main .main-nav .nav-button span{
+			text-align: center;
+			display:block;
+			transform: translateY(35%);
+			color: #aeafaf;
+			font-weight: 700;
+			font-size: 16px;
+		}
+		.main .main-nav .bview span{
+			color: #fff;
+		}
+		/*------------------主-数据化------------------------*/
+		.main .main-data{
+			height:100%;
+			display: none;
+		}
+		.main .main-data .main-tab{
+			overflow-y: auto;
+			height: 85%;
+			clear: both;
+			padding-bottom: 15px;
+			position: relative;
+			width: auto;
+			margin: 0 auto;
+		}
+		@media screen and (max-width: 375px) {
+			.main .main-data .main-tab{
+				height: 79.5%;
+			}
+		}
+		@media screen and (max-width: 320px) {
+			.main .main-data .main-tab{
+				height: 74.5%;
+			}
+		}
+		.main .main-data .main-tab::-webkit-scrollbar {
+        	display: none;//清除滚动条
+    	}
+		.main .main-data .main-tab .ul-container{
+		    overflow: hidden;
+		    clear: both; 
+		    margin: 0 auto;
+		}
+		.main .main-data .main-tab .ul-container li{
+			display: -webkit-box;
+		    display: -webkit-flex;
+		    display: -ms-flexbox;
+		    display: flex;
+		    -webkit-flex-wrap: wrap;
+		    -ms-flex-wrap: wrap;
+		    flex-wrap: wrap;
+		    float: left;
+		}
+		.main .main-data .main-tab .ul-container li .tab-piece{
+			display: block;
+		    position: relative;
+		    background: #f3f3f3;
+		    width: 45%;
+		    margin: 10px auto 5px auto;
+		    border-radius: 10px;
+		}
+		.main .main-data .main-tab .ul-container li .tab-piece:hover{
+			transform:scale(1.05);
+		}
+		.main .main-data .main-tab .ul-container li a{
+			display: block;
+		    color: #051B28;
+		    font-size: 16px;
+		    font-weight: 700;
+		    line-height: normal;
+		    height: auto;
+		    text-align: center;
+		    margin: 15px auto;
+		    background-clip: content-box;
+		    overflow: hidden;
+		    display: flex;
+		    flex-direction: column;
+		}
+		.main .main-data .main-tab .ul-container li a p{
+			color: #b6baba;
+		}
+		.main .main-data .main-tab .ul-container li a h1{
+			font-size: 2em;
+			font-weight: 900;
+			font-family: "黑体";
+		}
+		@media screen and (max-width: 360px) {
+			.main .main-data .main-tab .ul-container li a h1{
+				font-size: 1.5em;
+			}
+		}
+		/*----------------------主-可视化-----------------------------*/
+		.main-view{		
+			height: 100%;
+		}
+		.main-view .view-pic{
+			height: 88%;
+			width: auto;
+			background-image: url(images/view.png);
+			background-repeat:no-repeat;
+			background-position:center;
+			background-size: 95% 95%;
+		}
+		@media screen and (max-width: 375px) {
+			.main-view .view-pic{
+				height: 84%;
+			}
+		}
+		@media screen and (max-width: 320px) {
+			.main-view .view-pic{
+				height: 75%;
+			}
+		}
+		.main-view .view-pic .arrpiece{
+			width: 152px;
+			height: auto;
+			position: fixed;
+		}
+		.main-view .view-pic .arrpiece:hover{
+			transform: scale(1.05);
+		}
+		.main-view .view-pic .topsensor{
+			right: 15px;			
+		}
+		.main-view .view-pic .topleftsensor{
+			left: 15px;
+		}
+		
+		.main-view .view-pic .bottomsensor{
+			right: 15px;
+		}
+		.main-view .view-pic .bottomleftsensor{
+			left: 15px;
+		}
+
+		.main-view .view-pic .arrpiece .piece{
+			background: #f2f2f2;
+			height: auto;
+			border-radius: 40px;
+			margin: 5px;
+			white-space :nowrap ;
+			display:flex;
+			flex-direction: row;
+		}
+		
+		.main-view .view-pic .arrpiece .piece .icon{
+			background:#22bb77;
+			width: 40px;
+			border-radius: 40px;
+			display: flex;
+			flex-direction: row;
+		}
+
+		.main-view .view-pic .arrpiece .piece .icon .icon-pic{
+			display: flex;
+			text-align: center;
+			justify-content: center;
+			width: 30px;
+			height: 30px;
+			margin:auto;
+		}
+		.main-view .view-pic .arrpiece .piece .icon .icon-pic img{
+			width: auto;
+			height: 100%;
+			border-radius: 30px;
+			margin: auto;
+		}
+
+		.main-view .view-pic .arrpiece .piece  .text{
+			overflow:hidden;
+			width:90px;
+			//padding-left: 5px;
+		}
+		.main-view .view-pic .arrpiece .piece .icon i{
+			text-align: center;
+			margin-left: 15px;
+			line-height: 2.1;
+			color: #fff;
+		}
+		.main-view .view-pic .arrpiece .piece  p{
+			text-align: center;
+			font-size: 0.8em;
+		}
+		/*----------------------滑动小圆点----------------------------*/
+		.dot-container{
+		    width: 100%;
+		    background:transparent;
+		    position: absolute;
+		    text-align:center;
+		    bottom: 5px;
+		}
+
+		.dot-container span{
+		    background-color:#ddd;
+		    border-radius: 50%;
+		    width: 6px;
+		    height: 6px;
+		    display: inline-block;
+		    margin:0 2px
+		}
+
+		.dot-container span.act{
+		    background-color:#2196f3;
+		}
+
+		.cnt {
+	        width: 100%;
+	        height: 100%;
+	        position: absolute;
+	        top: 0;
+	        left: 0;
+	        background: rgba(0,0,0,.6);
+	        color: #fff;
+	        font-size: 18px;
+	        line-height: 1.6em;
+	        display: flex;
+	        justify-content: center;
+	        align-items: center;
+	        flex-direction: column;
+	        z-index: 9;
+	    }
+	</style>
+</head>
+<body onmousemove="getMousePos(event)">
+	<div class="cnt"></div>
+	<div id="center">
+		<!--<div class="skype-loader">-->
+			<!--<div class="dot">-->
+				<!--<div class="first"></div>-->
+			<!--</div>-->
+			<!--<div class="dot"></div>-->
+			<!--<div class="dot"></div>-->
+			<!--<div class="dot"></div>-->
+		<!--</div>-->
+		加载中
+	</div>
+
+	<div class="head">
+		<div class="head-nav">
+
+
+		</div>
+	</div>
+	<div class="floating">
+		<div class="floating-pin pl">
+			<img src="images/标签3.png" alt="">
+		</div>
+		<div class="floating-pin pr">
+			<img src="images/标签3.png" alt="">
+		</div>
+	</div>
+	
+	<div class="main">
+		
+		<div class="main-nav">
+			<div class="nav-button bview" onclick="viewClick()">				
+				<span><i class="fa fa-television fa-lg"></i>&nbsp;可视化</span>
+			</div>
+			<div class="nav-button bdata" onclick="dataClick()">
+				<span><i class="fa fa-bar-chart fa-lg"></i>&nbsp;数据化</span>
+			</div>
+		</div>
+		<div class="main-data">
+			<div class="main-tab">
+				<ul class="ul-container">
+					<li id="dataView">
+						<!--<div class="tab-piece">-->
+							<!--<a>-->
+								<!--<p>温度</p>-->
+								<!--<h1>130000.5</h1>-->
+								<!--<p>℃</p>-->
+							<!--</a>	-->
+						<!--</div>-->
+					</li>
+				</ul>
+				<div class="dot-container">
+
+				</div>
+			</div>
+		</div>
+		<div class="main-view">
+			<div class="view-pic">
+				<div class="arrpiece topsensor"> 
+					<!--<div class="piece ">-->
+						<!--<div class="icon">-->
+							<!--<i class="fa fa-thermometer-2 fa-lg"></i>&nbsp;-->
+							<!--<div class="text">-->
+								<!--<p>苗情气象站</p>-->
+								<!--<p>55℃</p>-->
+							<!--</div>-->
+						<!--</div>	-->
+					<!--</div>-->
+				</div>
+
+				<div class="arrpiece topleftsensor">
+
+				</div>
+				
+				<div class="arrpiece bottomsensor">
+
+					<!--<div class="piece">-->
+						<!--<div class="icon">-->
+							<!--<i class="fa fa-thermometer-2 fa-lg"></i>&nbsp;-->
+							<!--<div class="text">-->
+								<!--<p>苗情气象站</p>-->
+								<!--<p>55℃</p>-->
+							<!--</div>-->
+						<!--</div>	-->
+					<!--</div>-->
+				</div>
+
+				<div class="arrpiece bottomleftsensor">
+					<!--<div class="piece">-->
+						<!--<div class="icon">-->
+							<!--<i class="fa fa-thermometer-2 fa-lg"></i>&nbsp;-->
+							<!--'<i class="fa fa-thermometer-2 fa-lg"></i>&nbsp;'+-->
+							<!--<div class="text">-->
+								<!--<p>苗情气象站</p>-->
+								<!--<p>55℃</p>-->
+							<!--</div>-->
+						<!--</div>	-->
+					<!--</div>-->
+				</div>
+
+			</div>
+			
+		</div>
+	</div>
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript">
+
+		//头部导航栏
+		function get_android_base(base,id){
+
+			$.each(base,function(index,history){
+				let terminalList=history.terminalList;
+				if(id=="60"){
+					$(".main-view .view-pic").css("background-image","url(images/圆形浮台.png)");
+				}
+				if(id=="21"){
+					$(".main-view .view-pic").css("background-image","url(images/气象站.png)");
+				}
+				if(id=="22"){
+					$(".main-view .view-pic").css("background-image","url(images/圆形浮台.png)");
+				}
+
+				if(id==history.id){
+					$.each(terminalList,function(index1,history1){
+						var $nodebase = addNodeBase(history1);
+						$('.head-nav').append($nodebase);
+					});
+				}
+
+			});
+		}
+
+		function addNodeBase(dataitems){
+		//alert(dataitems.id)
+			var cardnode ='<div class="head-button" id="'+dataitems.id+'">'+
+							'<span>'+dataitems.name+'</span>'+
+						   '</div>';
+			return $(cardnode);
+		}
+
+		//数据
+		function get_android_data(data){
+			if(data==""){alert("此基地无数据，换一个试试！")}
+
+			$('#dataView').empty();
+			$('.topsensor').empty();
+			$('.bottomsensor').empty();
+			$('.bottomleftsensor').empty();
+			$.each(data,function(index,history){
+				var $node = addNodeData(history);
+				$('#dataView').append($node);
+				if(index==0||index==1||index==2)
+				{
+					var $node1 = addNodeView(history);
+					$('.topsensor').append($node1);
+				}
+				if(index==5||index==6||index==7)
+				{
+					var $node2 = addNodeView(history);
+					$('.bottomsensor').append($node2);
+				}
+				if(index==3||index==4||index==8)
+				{
+					var $node3 = addNodeView(history);
+					$('.bottomleftsensor').append($node3);
+				}
+				if(index==9||index==10||index==11)
+				{
+					var $node4 = addNodeView(history);
+					$('.topleftsensor').append($node4);
+				}
+			});
+			$("#center").css("display","none");
+			$(".cnt").css("display","none");
+		}
+
+		//数据化
+		function addNodeData(dataitems){
+			//保留汉字
+			var keywords = dataitems.keywords.replace(/[^\u4E00-\u9FA5]/g,'');
+			//取前两个字符判断是哪个基地
+			var key= dataitems.alias.substring(0, 2);
+			//alert(keywords);
+			var state;
+			var stylecolor="";
+			if(dataitems.state=="1"){
+				state="在线";
+				stylecolor="color:green";
+			}
+			else{
+				state="离线";
+
+			}
+
+			let updatetime=dataitems.updatetime+"000";
+			let myupdatetime= stampToDate(updatetime);
+			if(typeof(dataitems.updatetime)== "undefined") myupdatetime="无数据";
+			if(dataitems.content=="无数据") dataitems.content="--";
+			//alert(stampToDate(updatetime));
+			//1542274800000
+			//let newtime= new Date(1560602362).Format('yy-MM-dd hh:mm')
+				var cardnode = '<div class="tab-piece" id="'+dataitems.id+'">'+
+									'<a>'+
+										'<p>'+keywords+'('+dataitems.unit+')</p>'+
+										'<h1>'+dataitems.content+'</h1>'+
+										'<p style="'+stylecolor+'">'+state+'</p>'+
+										'<p>'+myupdatetime+'</p>'+
+									'</a>'+
+								'</div>';
+				return $(cardnode);
+
+		}
+
+		//可视化
+		function addNodeView(dataitems){
+			//保留汉字
+			var keywords = dataitems.keywords.replace(/[^\u4E00-\u9FA5]/g,'');
+			//取前两个字符判断是哪个基地
+			var key= dataitems.alias.substring(0, 2);
+			//alert(dataitems.alias);
+			var iconUrl="http://cloud.farmereasy.com"+dataitems.image;
+
+				var cardnode = '<div class="piece">'+
+									'<div class="icon">'+
+										'<div class="icon-pic">'+
+											'<img src="'+iconUrl+'" alt="">'+
+										'</div>'+
+									'</div>	'+
+									'<div class="text">'+
+											'<p>'+keywords+'</p>'+
+											'<p>'+dataitems.content+dataitems.unit+'</p>'+
+									'</div>'+
+								'</div>';
+				return $(cardnode);
+
+		}
+
+
+		Date.prototype.Format = function (fmt) {
+			var o = {
+					"M+": this.getMonth() + 1, // 月份
+					"d+": this.getDate(), // 日
+					"h+": this.getHours(), // 小时
+					"m+": this.getMinutes(), // 分
+					"s+": this.getSeconds(), // 秒
+					"q+": Math.floor((this.getMonth() + 3) / 3) // 季度
+
+			};
+			if (/(y+)/.test(fmt))
+				fmt = fmt.replace(RegExp.$1, (this.getFullYear() + ""));
+			for (var k in o)
+				if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+			return fmt;
+		}
+		//alert( new Date(1542274800000).Format('yy-MM-dd hh:mm:ss')); //"2018-11-15 17:40:00"
+
+
+		function add0(m){return m<10?'0'+m:m }
+		function format(timestamp)
+		{
+		  //timestamp是整数，否则要parseInt转换,不会出现少个0的情况
+
+			var time = new Date(timestamp);
+			var year = time.getFullYear();
+			var month = time.getMonth()+1;
+			var date = time.getDate();
+			var hours = time.getHours();
+			var minutes = time.getMinutes();
+			var seconds = time.getSeconds();
+			return year+'-'+add0(month)+'-'+add0(date)+' '+add0(hours)+':'+add0(minutes)+':'+add0(seconds);
+		}
+
+		function stampToDate(time) {
+			var date = new Date(Number(time));//将接收到的的String类型的时间转为数字类型
+			var y = date.getFullYear();
+			var m = date.getMonth() + 1;
+			var d = date.getDate();
+			var hour = date.getHours().toString();
+			var minutes = date.getMinutes().toString();
+			var seconds = date.getSeconds().toString();
+			if(hour < 10) {
+				hour = "0" + hour;
+			}
+			if(minutes < 10) {
+				minutes = "0" + minutes;
+			}
+			if(seconds < 10) {
+				seconds = "0" + seconds;
+			}
+			return y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d) + " " + hour + ":" + minutes + ":" + seconds;
+		}
+
+	</script>
+	<script type="text/javascript">
+		//var WINDOWHEIGHT=$(window).height();
+		var WINDOWHEIGHT=window.screen.height;
+		console.log(WINDOWHEIGHT);
+		var addtop=WINDOWHEIGHT/2.5;
+		var addbottom=WINDOWHEIGHT/3;
+		if(WINDOWHEIGHT>=736){
+			$(".main-view .view-pic .topsensor").css("top",addtop-50);
+			$(".main-view .view-pic .topleftsensor").css("top",addtop-50);
+			$(".main-view .view-pic .bottomsensor").css("top",addbottom*2-80);
+			$(".main-view .view-pic .bottomleftsensor").css("top",addbottom*2-80);
+		}
+		else if(WINDOWHEIGHT<736&&WINDOWHEIGHT>568){
+			$(".main-view .view-pic .topsensor").css("top",addtop);
+			$(".main-view .view-pic .topleftsensor").css("top",addtop);
+			$(".main-view .view-pic .bottomsensor").css("top",addbottom*2-30);
+			$(".main-view .view-pic .bottomleftsensor").css("top",addbottom*2-30);
+		}
+		else{
+			$(".main-view .view-pic .topsensor").css("top",addtop);
+			$(".main-view .view-pic .topleftsensor").css("top",addtop);
+			$(".main-view .view-pic .bottomsensor").css("top",addbottom*2-50);
+			$(".main-view .view-pic .bottomleftsensor").css("top",addbottom*2+37);
+		}
+		function getMousePos(event) {
+		    var e = event || window.event;
+		    var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+		    var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+		    var x = e.pageX || e.clientX + scrollX;
+		    var y = e.pageY || e.clientY + scrollY;
+		    console.log(y)
+		    return { 'x': x, 'y': y };
+		}
+		function dataClick(){
+			//document.getElementById("div1").style.display="block";
+			$(".main-data").show();
+			$(".main-view").hide();
+			$(".main .main-nav .bview").css("background","#fff");
+			$(".main .main-nav .bview span").css("color","#aeafaf");
+			$(".main .main-nav .bdata").css("background","#7FB3FF");
+			$(".main .main-nav .bdata span").css("color","#fff");
+		}
+		function viewClick(){
+			$(".main-data").hide();
+			$(".main-view").show();
+			$(".main .main-nav .bdata").css("background","#fff");
+			$(".main .main-nav .bdata span").css("color","#aeafaf");
+			$(".main .main-nav .bview").css("background","#7FB3FF");
+			$(".main .main-nav .bview span").css("color","#fff");
+		}
+
+
+		$("body").on("click", ".mcontrol", function() {
+			var get_id=$(this).parent().parent().attr("id");
+			window.android.get_data("mcontrol",get_id);
+				  //alert(get_id);
+   		 });
+	</script>
+	<script type="text/javascript">
+		$("body").on("click", ".head-button", function() {
+			$("#center").css("display","block");
+			$(".cnt").css("display","flex");
+			var get_id=$(this).attr("id");
+			window.android.set_jsdata(get_id);
+			$(".head-button").css("background","#f7f8f7");
+			$(".head-button").css("box-shadow","1px 5px 0px #f1f4ff");
+			$(".head-button span").css("color","#aeafaf");
+			$(this).css("background","#0074FF");
+			$(this).css("box-shadow","0px 5px 0px #fff");
+			$("#"+get_id+" span").css("color","#fff");
+			//alert(get_id);
+		});
+	</script>
+
+	<script type="text/javascript">
+
+		$("body").on("click",".tab-piece",function(){
+			let get_id=$(this).attr("id");
+			let get_content=$(this).children().children().eq(0).text();
+			window.android.set_android_devices(get_id,get_content);
+			//alert(get_id);
+		})
+	</script>
+
+</body>
+</html>
